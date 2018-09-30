@@ -17,5 +17,4 @@ func Index(w http.ResponseWriter,r *http.Request)  {
 func Name(w http.ResponseWriter,r *http.Request)  {
 
 	fmt.Fprint(w,"hello name")
-
 }
