@@ -36,12 +36,13 @@
 [[constraint]]
   name = "github.com/gorilla/mux"
   branch = "master"
-[[constraint]]
-  name = "github.com/auth0/go-jwt-middleware"
-  branch = "master"
+#[[constraint]]
+#  name = "github.com/auth0/go-jwt-middleware"
+#  branch = "master"
 [[constraint]]
   name = "github.com/dgrijalva/jwt-go"
   branch = "master"
+
 [prune]
   go-tests = true
   unused-packages = true
