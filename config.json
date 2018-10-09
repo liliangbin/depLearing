@@ -1,9 +1,9 @@
 {
   "db":{
-    "username":"root",
-    "password":"123456",
-    "dbname":"liliangbin",
-    "address":"127.0.0.1",
+    "username":"school",
+    "password":"uUkHgIfO92ACNMyh",
+    "dbname":"school_stu_infos",
+    "address":"121.251.255.96",
     "port":"3306"
   }
 }

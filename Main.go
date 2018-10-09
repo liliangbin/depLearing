@@ -55,6 +55,8 @@ func initDB() {
 
 	feedback = db.HasTable(&model.FeedbackMessages{})
 	db.AutoMigrate(model.FeedbackMessages{})
+	db.AutoMigrate(model.ClassInfo{})
+	db.AutoMigrate(model.StudentInfo{})
 	fmt.Println(feedback)
 
 }
