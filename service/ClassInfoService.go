@@ -108,7 +108,10 @@ func initDayCourses(user model.ClassInfo, week_class *model.WeekClass) {
 			panic(err.Error())
 		}
 		//获取这个老师的信息
+
+		teacher := GetTeacherInfoByteacherNum(user.ClassTeacher)
 		//从零开始。以前是从
-		week_class.InsertClass(this_week, course_time-1, user.ClassName, user.ClassPosition, user.ClassTeacher)
+		week_class.InsertClass(this_week, course_time-1, user.ClassName, user.ClassPosition, teacher.TeacherName)
+
 	}
 }

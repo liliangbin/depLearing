@@ -48,3 +48,4 @@ func TestWeekClass_InitWeekClass(t *testing.T) {
 	fmt.Println(studentInfos.StudentName)
 
 }
+

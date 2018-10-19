@@ -43,3 +43,5 @@ type StudentInfo struct {
 	StudentProfessional string //学生专业
 	StudentClass        string //学生班级
 }
+
+
