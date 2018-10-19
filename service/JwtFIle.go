@@ -34,11 +34,13 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
 	log.Println("第三步")
 	claims := make(jwt.MapClaims)
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
 	claims["iat"] = time.Now().Unix()
 	claims["id"] = "123456"
+	claims["student_id"] = "1607040211"
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString([]byte("lilili"))
 	fmt.Println(tokenString, err)
@@ -48,9 +50,9 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func ValidateToeknMiddleWare(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+func ValidateTokenMiddleWare(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 
-	r.ParseForm() //这个地方不会出问题了
+	r.ParseForm()
 	fmt.Println(r.Form)
 	var tokenString = r.Form["token"][0]
 	//tokenString := ""

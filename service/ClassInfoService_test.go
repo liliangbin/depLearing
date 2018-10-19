@@ -1,12 +1,12 @@
-package handlers
+package service
 
 import (
 	"testing"
-	"os"
-	"fmt"
-	"golang_tes/depLearing/core"
 	"time"
+	"fmt"
 	"strconv"
+	"golang_tes/depLearing/core"
+	"os"
 )
 
 func init() {
@@ -23,7 +23,6 @@ func init() {
 
 func TestGet_User_Class(t *testing.T) {
 
-	GetClass()
 
 	tim := time.Now()
 	fmt.Println(tim.ISOWeek())
@@ -31,4 +30,5 @@ func TestGet_User_Class(t *testing.T) {
 	fmt.Println(timw.ISOWeek())
 
 	fmt.Println(strconv.Atoi("01"))
+
 }

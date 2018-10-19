@@ -18,3 +18,28 @@ type ClassInfo struct {
 	ClassCourseNumber string //课程号
 }
 
+type SchoolUnit struct {
+	ID       int `gorm:"primary_key 	AUTO_INCREMENT"`
+	UnitName string
+	UnitId   string
+}
+type SchoolTeacher struct {
+	ID          int `gorm:"primary_key 	AUTO_INCREMENT"`
+	TeacherName string
+	TeacherId   string
+}
+
+type SchoolCourse struct {
+	ID           int `gorm:"primary_key 	AUTO_INCREMENT"`
+	CourseName   string
+	CourseNumber string
+}
+
+type StudentInfo struct {
+	ID                  int `gorm:"primary_key 	AUTO_INCREMENT"`
+	StudentName         string
+	StudentId           string
+	StudentCollege      string //学生学院
+	StudentProfessional string //学生专业
+	StudentClass        string //学生班级
+}

@@ -7,20 +7,29 @@ type Class struct {
 }
 
 type Day struct {
-	Course []Class
+	Course [12]Class
 }
 
 type WeekClass struct {
-	Days []Day
+	Days [7]Day
 }
 
-func InitWeekClass() *WeekClass {
-
-	weekClass := new(WeekClass)
-	weekClass.Days = make([]Day, 7)
-	for _, week_day := range weekClass.Days {
-
-		week_day.Course = make([]Class, 12)
-	}
-	return weekClass
+type WeekClassInterface interface {
+	InitWeekClass()
+	InsertClass(weekDay int, courseTime int, courseName string, coursePosition string, courseTeacher string)
 }
+
+func (weekClass *WeekClass) InitWeekClass() {
+
+	weekClass.Days[0].Course[7].ClassTeacher = "hello"
+
+}
+
+func (weekClass *WeekClass) InsertClass(weekDay int, courseTime int, courseName string, coursePosition string, courseTeacher string) {
+
+	weekClass.Days[weekDay].Course[courseTime].ClassName = courseName
+	weekClass.Days[weekDay].Course[courseTime].ClassPosition = coursePosition
+	weekClass.Days[weekDay].Course[courseTime].ClassTeacher = courseTeacher
+
+}
+

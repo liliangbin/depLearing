@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 	"fmt"
-	"golang_tes/depLearing/model"
 )
 
 func Hand(w http.ResponseWriter, r *http.Request) {
@@ -17,11 +16,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func Name(w http.ResponseWriter, r *http.Request) {
-	msg := model.FeedbackMessages{
-		UserName: "liliangbin",
-		Message:  "ha er 啊",
-	}
-	msg.Create()
+
 	fmt.Fprint(w, "hello name")
 }
 

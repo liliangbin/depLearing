@@ -9,6 +9,7 @@ import (
 	"golang_tes/depLearing/core"
 	"log"
 	"golang_tes/depLearing/model"
+	"golang_tes/depLearing/handlers"
 )
 
 func test(w http.ResponseWriter, r *http.Request) {
@@ -32,12 +33,11 @@ func init() {
 
 func main() {
 	initDB()
-	initData()
 	router := NewRouter()
 	router.HandleFunc("/test", test)
 	router.HandleFunc("/login", service.LoginHandler)
-
-	router.Handle("/resource", negroni.New(negroni.HandlerFunc(service.ValidateToeknMiddleWare), negroni.WrapFunc(test)))
+	router.HandleFunc("/index", handlers.GetClassInfo)
+	router.Handle("/resource", negroni.New(negroni.HandlerFunc(service.ValidateTokenMiddleWare), negroni.WrapFunc(test)))
 
 	n := negroni.Classic()
 	n.Use(negroni.NewLogger())
@@ -53,27 +53,14 @@ func initDB() {
 	defer db.Close()
 	var feedback bool
 
-	feedback = db.HasTable(&model.FeedbackMessages{})
-	db.AutoMigrate(model.FeedbackMessages{})
 	db.AutoMigrate(model.ClassInfo{})
 	db.AutoMigrate(model.StudentInfo{})
+	db.AutoMigrate(model.SchoolCourse{})
+
+	db.AutoMigrate(model.SchoolUnit{})
+
+	db.AutoMigrate(model.SchoolTeacher{})
+
 	fmt.Println(feedback)
-
-}
-
-func initData() {
-	db, err := core.GetSqlConn()
-	defer db.Close()
-	if err != nil {
-
-		panic(nil)
-	}
-
-	fmt.Println(db.HasTable(&model.FeedbackMessages{}))
-	db.Create(model.FeedbackMessages{
-		Message:  "init messgae ",
-		UserName: "liliangbin",
-		ImgUrl:"sadfasdf",
-	})
 
 }
