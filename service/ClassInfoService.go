@@ -28,8 +28,10 @@ func GetClassInfo(student_id string, class_grade string, week int) interface{} {
 
 	var classes []model.ClassInfo
 
+	fmt.Println(student_id , class_grade)
 	db.Where("student_id=? and class_grade=?", student_id, class_grade).Find(&classes)
 
+	fmt.Println(classes)
 	//周数需要我们自己计算。
 
 	week_class := new(model.WeekClass)

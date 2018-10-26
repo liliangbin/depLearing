@@ -36,7 +36,9 @@ func main() {
 	router := NewRouter()
 	router.HandleFunc("/test", test)
 	router.HandleFunc("/login", service.LoginHandler)
-	router.HandleFunc("/index", handlers.GetClassInfo)
+	router.HandleFunc("/class", handlers.GetCurrentClassInfo)
+	router.HandleFunc("/class_week", handlers.GetClassInfoByWeekDay)
+	router.HandleFunc("/class_grade", handlers.GetClassInfoByWeekAndGrade)
 	router.Handle("/resource", negroni.New(negroni.HandlerFunc(service.ValidateTokenMiddleWare), negroni.WrapFunc(test)))
 
 	n := negroni.Classic()
