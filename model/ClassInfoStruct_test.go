@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"golang_tes/depLearing/core"
 	"log"
+	"encoding/json"
 )
 
 func init() {
@@ -39,7 +40,7 @@ func TestWeekClass_InitWeekClass(t *testing.T) {
 
 	log.Fatal("hello world")
 
-	var schoolUnit  SchoolUnit
+	var schoolUnit SchoolUnit
 	db.Where("id=3").First(&schoolUnit)
 	fmt.Println(schoolUnit.UnitName)
 
@@ -49,3 +50,15 @@ func TestWeekClass_InitWeekClass(t *testing.T) {
 
 }
 
+func TestWeekClass_InitWeekClass3(t *testing.T) {
+
+	sdf := "{'yb_userid':'8574001','yb_username':'李良彬','yb_usernick':'李良彬','yb_sex':'M','yb_money':'784','yb_exp':'541','yb_userhead':'http://img02.fs.yiban.cn/8574001/avatar/user/200','yb_schoolid':'34039','yb_schoolname':'中国石油大学（华东）','yb_realname':'李良彬','yb_studentid':'1607040211','yb_identity':'学生'}"
+
+	YbInfo := new(YBUserInfo)
+	if err := json.Unmarshal([]byte(sdf), &YbInfo); err != nil {
+		fmt.Println("解析出错")
+		panic(err.Error())
+	}
+
+	fmt.Println(YbInfo.YbStudentid)
+}

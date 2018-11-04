@@ -1,4 +1,4 @@
-package service
+package utils
 
 type IString interface {
 	SubString(index int, end int) string

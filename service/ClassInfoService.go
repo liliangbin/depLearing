@@ -117,3 +117,4 @@ func initDayCourses(user model.ClassInfo, week_class *model.WeekClass) {
 
 	}
 }
+

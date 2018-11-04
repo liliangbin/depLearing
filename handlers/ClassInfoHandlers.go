@@ -6,16 +6,20 @@ import (
 	"fmt"
 	"encoding/json"
 	"strconv"
+	"golang_tes/depLearing/utils"
 )
 
 func GetCurrentClassInfo(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
-	student_id := r.Form["student_id"][0]
-	fmt.Println(student_id)
+	token := r.Form["token"][0]
+	userInfo,err :=service.GetStuInfoByVq("石大请销假",token)
+	utils.CheckError(err)
+	student_id :=userInfo.YbStudentid
+	fmt.Println()
 
-	week := service.GetWeeks()
-	fmt.Println(week)
+	week := utils.GetWeeks()
+	fmt.Println(week,"curent weeks ====>")
 	initd := service.GetClassInfo(student_id, "2018-2019-1", week)
 
 	service.AllowCORS(w)
@@ -29,10 +33,13 @@ func GetCurrentClassInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetClassInfoByWeekDay(w http.ResponseWriter, r *http.Request) {
-
 	r.ParseForm()
-	student_id := r.Form["student_id"][0]
+	token := r.Form["token"][0]
 	week := r.Form["week"][0]
+	userInfo,err :=service.GetStuInfoByVq("石大请销假",token)
+	utils.CheckError(err)
+	student_id :=userInfo.YbStudentid
+
 
 	fmt.Println(student_id)
 	we, err := strconv.Atoi(week)
@@ -57,7 +64,10 @@ func GetClassInfoByWeekDay(w http.ResponseWriter, r *http.Request) {
 func GetClassInfoByWeekAndGrade(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
-	student_id := r.Form["student_id"][0]
+	token := r.Form["token"][0]
+	userInfo,err :=service.GetStuInfoByVq("石大请销假",token)
+	utils.CheckError(err)
+	student_id :=userInfo.YbStudentid
 	week := r.Form["week"][0]
 	grade := r.Form["grade"][0]
 

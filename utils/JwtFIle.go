@@ -1,48 +1,43 @@
-package service
+package utils
 
 import (
 	"github.com/dgrijalva/jwt-go"
 	"fmt"
 	"net/http"
 	"log"
-	"strings"
 	"time"
 	"encoding/json"
 	"golang_tes/depLearing/model"
+	"golang_tes/depLearing/service"
 )
 
-func LoginHandler(w http.ResponseWriter, r *http.Request) {
+const appName = "石大请销假"
+const jwtSecret = "lililili"
+
+func OAuthHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("url", r.Method+"=====", r.Body)
-	err :=r.ParseForm()
+	err := r.ParseForm()
 	fmt.Println(r.Form)
 	if err != nil {
 		w.WriteHeader(http.StatusForbidden)
 		fmt.Fprintf(w, "error in request")
 	}
-	user := new(model.UserCredentials)
-	user.Username = r.Form["username"][0]
-	user.Password = r.Form["password"][0]
-	log.Println(user.Password + "    fffff")
+	/*vq appName */
+	vq := r.Form["vq"][0]
 
-	log.Println("第二步")
-	if strings.ToLower(user.Username) != "liliangbin" {
-		if user.Password != "liliangbin" {
-			w.WriteHeader(http.StatusForbidden)
-			fmt.Println("Error login ")
-			fmt.Fprintf(w, "Invalid credentials")
-
-			return
-		}
+	userInfo, err := service.GetStuInfoByVq(appName, vq)
+	if err != nil {
+		panic(err.Error())
 	}
-
 	log.Println("第三步")
 	claims := make(jwt.MapClaims)
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
 	claims["iat"] = time.Now().Unix()
 	claims["id"] = "123456"
-	claims["student_id"] = "1607040211"
+	claims["student_id"] = userInfo.YbStudentid
+	claims["vq"] = vq
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := token.SignedString([]byte("lilili"))
+	tokenString, err := token.SignedString([]byte(jwtSecret))
 	fmt.Println(tokenString, err)
 	log.Println(tokenString + "   " + w.Header().Get("status"))
 	response := model.Token{tokenString}
@@ -57,7 +52,7 @@ func ValidateTokenMiddleWare(w http.ResponseWriter, r *http.Request, next http.H
 	var tokenString = r.Form["token"][0]
 	//tokenString := ""
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		return []byte("lilili"), nil
+		return []byte(jwtSecret), nil
 	})
 
 	if token.Valid {
@@ -66,7 +61,6 @@ func ValidateTokenMiddleWare(w http.ResponseWriter, r *http.Request, next http.H
 		} else {
 			fmt.Println(err)
 		}
-
 		fmt.Println("You look nice today")
 		fmt.Fprintf(w, "index")
 		next(w, r)
@@ -91,7 +85,43 @@ func ValidateTokenMiddleWare(w http.ResponseWriter, r *http.Request, next http.H
 
 }
 
-func JsonResponse(response interface{}, w http.ResponseWriter) {
+func GetStuInfoByToken(tokenString string) (*model.YBUserInfo, error) {
+
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		return []byte(jwtSecret), nil
+	})
+
+	if token.Valid {
+		if claims, ok := token.Claims.(jwt.MapClaims); ok {
+			fmt.Println(claims["id"], claims["student_id"])
+			vq := claims["vq"]
+			v := vq.(string)
+			userInfo, err := service.GetStuInfoByVq(appName, v)
+			return userInfo, err
+		} else {
+			fmt.Println(err)
+			return nil,err
+		}
+
+	} else if ve, ok := err.(*jwt.ValidationError); ok {
+		if ve.Errors&jwt.ValidationErrorMalformed != 0 {
+			fmt.Println("That's not even a token")
+			return nil, err
+		} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
+			// Token is either expired or not active yet
+			fmt.Println("Timing is everything")
+			return nil, err
+		} else {
+			fmt.Println("Couldn't handle this token:", err)
+			return nil, err
+		}
+	} else {
+		fmt.Println("Couldn't handle this token:", err)
+		return nil, err
+	}
+}
+
+func JsonResponse(response interface{}, w http.ResponseWriter)  {
 
 	log.Println("jsonresponse")
 	json, err := json.Marshal(response)
@@ -100,7 +130,7 @@ func JsonResponse(response interface{}, w http.ResponseWriter) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	//w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(json)
 }
+

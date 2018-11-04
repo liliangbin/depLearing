@@ -134,7 +134,7 @@ func AECCBCDecrypter(deconding string) string {
 	// CryptBlocks可以原地更新
 	mode.CryptBlocks(ciphertext, ciphertext)
 
-	fmt.Printf("%s\n", ciphertext)
+//	fmt.Printf("%s\n", ciphertext)
 	return string(ciphertext)
 	// Output: exampleplaintext
 }

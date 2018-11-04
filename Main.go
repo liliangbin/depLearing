@@ -4,12 +4,12 @@ import (
 	"github.com/codegangsta/negroni"
 	"net/http"
 	"fmt"
-	"golang_tes/depLearing/service"
 	"os"
 	"golang_tes/depLearing/core"
 	"log"
 	"golang_tes/depLearing/model"
 	"golang_tes/depLearing/handlers"
+	"golang_tes/depLearing/utils"
 )
 
 func test(w http.ResponseWriter, r *http.Request) {
@@ -35,11 +35,11 @@ func main() {
 	initDB()
 	router := NewRouter()
 	router.HandleFunc("/test", test)
-	router.HandleFunc("/login", service.LoginHandler)
+	router.HandleFunc("/oauth", utils.OAuthHandler)
 	router.HandleFunc("/class", handlers.GetCurrentClassInfo)
 	router.HandleFunc("/class_week", handlers.GetClassInfoByWeekDay)
 	router.HandleFunc("/class_grade", handlers.GetClassInfoByWeekAndGrade)
-	router.Handle("/resource", negroni.New(negroni.HandlerFunc(service.ValidateTokenMiddleWare), negroni.WrapFunc(test)))
+	router.Handle("/resource", negroni.New(negroni.HandlerFunc(utils.ValidateTokenMiddleWare), negroni.WrapFunc(test)))
 
 	n := negroni.Classic()
 	n.Use(negroni.NewLogger())
@@ -62,7 +62,6 @@ func initDB() {
 	db.AutoMigrate(model.SchoolUnit{})
 
 	db.AutoMigrate(model.SchoolTeacher{})
-
 	fmt.Println(feedback)
 
 }
