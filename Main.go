@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/codegangsta/negroni"
-	"net/http"
 	"fmt"
 	"os"
 	"golang_tes/depLearing/core"
@@ -12,10 +11,7 @@ import (
 	"golang_tes/depLearing/utils"
 )
 
-func test(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Fprint(w, "test for zhe seond test")
-}
 
 func init() {
 
@@ -34,17 +30,15 @@ func init() {
 func main() {
 	initDB()
 	router := NewRouter()
-	router.HandleFunc("/test", test)
 	router.HandleFunc("/oauth", utils.OAuthHandler)
-	router.HandleFunc("/class", handlers.GetCurrentClassInfo)
-	router.HandleFunc("/class_week", handlers.GetClassInfoByWeekDay)
-	router.HandleFunc("/class_grade", handlers.GetClassInfoByWeekAndGrade)
-	router.Handle("/resource", negroni.New(negroni.HandlerFunc(utils.ValidateTokenMiddleWare), negroni.WrapFunc(test)))
+	router.Handle("/class",negroni.New(negroni.HandlerFunc(utils.ValidateTokenMiddleWare),negroni.WrapFunc(handlers.GetCurrentClassInfo)))
+	router.Handle("/class_week",negroni.New(negroni.HandlerFunc(utils.ValidateTokenMiddleWare),negroni.WrapFunc(handlers.GetClassInfoByWeekDay)))
+	router.Handle("/class_grade",negroni.New(negroni.HandlerFunc(utils.ValidateTokenMiddleWare),negroni.WrapFunc(handlers.GetClassInfoByWeekAndGrade)))
 
 	n := negroni.Classic()
 	n.Use(negroni.NewLogger())
 	n.UseHandler(router)
-	n.Run(":3000")
+	n.Run(":8083")
 }
 
 func initDB() {

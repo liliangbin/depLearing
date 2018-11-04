@@ -15,7 +15,6 @@ const appName = "石大请销假"
 const jwtSecret = "lililili"
 
 func OAuthHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("url", r.Method+"=====", r.Body)
 	err := r.ParseForm()
 	fmt.Println(r.Form)
 	if err != nil {
@@ -50,7 +49,6 @@ func ValidateTokenMiddleWare(w http.ResponseWriter, r *http.Request, next http.H
 	r.ParseForm()
 	fmt.Println(r.Form)
 	var tokenString = r.Form["token"][0]
-	//tokenString := ""
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte(jwtSecret), nil
 	})

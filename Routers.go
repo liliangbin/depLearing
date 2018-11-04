@@ -5,7 +5,6 @@ package main
 import (
 	"github.com/gorilla/mux"
 	"golang_tes/depLearing/model"
-	"golang_tes/depLearing/handlers"
 )
 
 func NewRouter() *mux.Router {
@@ -22,7 +21,7 @@ func NewRouter() *mux.Router {
 
 var routes  = model.Routes{
 
-	model.Router{
+/*	model.Router{
 		"Index",
 		"GET",
 		"/",
@@ -40,5 +39,5 @@ var routes  = model.Routes{
 		"GET",
 		"/handle",
 		handlers.Hand,
-	},
+	},*/
 }

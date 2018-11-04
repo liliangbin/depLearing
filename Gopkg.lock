@@ -2,14 +2,6 @@
 
 
 [[projects]]
-  branch = "master"
-  digest = "1:e4fd8a4041e47ec6cb6c38ad4baf4f1f37278c7ba23625905147a5823885787a"
-  name = "github.com/auth0/go-jwt-middleware"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "5493cabe49f7bfa6e2ec444a09d334d90cd4e2bd"
-
-[[projects]]
   digest = "1:d688f4ad71b5dfad95c2d74cb0feac09f8f3c32ae5cecc078230dbdeece39e53"
   name = "github.com/codegangsta/negroni"
   packages = ["."]
@@ -18,12 +10,12 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:76dc72490af7174349349838f2fe118996381b31ea83243812a97e5a0fd5ed55"
+  branch = "master"
+  digest = "1:5771b86b64a5e64d8e3d70337813686586210131ac4fb4c6a97b43c8e25e2253"
   name = "github.com/dgrijalva/jwt-go"
   packages = ["."]
   pruneopts = "UT"
-  revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
-  version = "v3.2.0"
+  revision = "3af4c746e1c248ee8491a3e0c6f7a9cd831e95f8"
 
 [[projects]]
   digest = "1:adea5a94903eb4384abef30f3d878dc9ff6b6b5b0722da25b82e5169216dfb61"
@@ -42,6 +34,22 @@
   revision = "9e1f5955c0d22b55d9e20d6faa28589f83b2faca"
 
 [[projects]]
+  digest = "1:235ae01f32fb5f12c5f6d2e0e05ab48e651ab31c126e45a4efc4f510810941ac"
+  name = "github.com/jinzhu/gorm"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "6ed508ec6a4ecb3531899a69cbc746ccf65a4166"
+  version = "v1.9.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:fd97437fbb6b7dce04132cf06775bd258cce305c44add58eb55ca86c6c325160"
+  name = "github.com/jinzhu/inflection"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "04140366298a54a039076d798123ffa108fff46c"
+
+[[projects]]
   digest = "1:c25289f43ac4a68d88b02245742347c94f1e108c534dda442188015ff80669b3"
   name = "google.golang.org/appengine"
   packages = ["cloudsql"]
@@ -53,11 +61,11 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/auth0/go-jwt-middleware",
     "github.com/codegangsta/negroni",
     "github.com/dgrijalva/jwt-go",
     "github.com/go-sql-driver/mysql",
     "github.com/gorilla/mux",
+    "github.com/jinzhu/gorm",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

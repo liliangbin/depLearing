@@ -6,7 +6,6 @@ import (
 	"net/url"
 	"net/http"
 	"io/ioutil"
-	"fmt"
 	"encoding/json"
 	"golang_tes/depLearing/model"
 	"log"
@@ -88,7 +87,7 @@ func GetStuInfoByVq (appName string,vq string)(*model.YBUserInfo,error)   {
 	userInfo := new(model.YBUserInfo)
 
 	if err := json.Unmarshal(body, &userInfo); err != nil {
-		fmt.Println("fsdf")
+		log.Fatal("json  反序列化出错")
 		panic(err.Error())
 	}
 	return userInfo,err

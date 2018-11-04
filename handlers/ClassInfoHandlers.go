@@ -13,10 +13,10 @@ func GetCurrentClassInfo(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
 	token := r.Form["token"][0]
-	userInfo,err :=service.GetStuInfoByVq("石大请销假",token)
+	userInfo,err :=utils.GetStuInfoByToken(token)
 	utils.CheckError(err)
 	student_id :=userInfo.YbStudentid
-	fmt.Println()
+	fmt.Println("studdent_id",student_id)
 
 	week := utils.GetWeeks()
 	fmt.Println(week,"curent weeks ====>")
@@ -36,10 +36,11 @@ func GetClassInfoByWeekDay(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	token := r.Form["token"][0]
 	week := r.Form["week"][0]
-	userInfo,err :=service.GetStuInfoByVq("石大请销假",token)
+	userInfo,err :=utils.GetStuInfoByToken(token)
 	utils.CheckError(err)
 	student_id :=userInfo.YbStudentid
 
+	fmt.Println(student_id+"student_id")
 
 	fmt.Println(student_id)
 	we, err := strconv.Atoi(week)
@@ -65,9 +66,10 @@ func GetClassInfoByWeekAndGrade(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
 	token := r.Form["token"][0]
-	userInfo,err :=service.GetStuInfoByVq("石大请销假",token)
+	userInfo,err :=utils.GetStuInfoByToken(token)
 	utils.CheckError(err)
 	student_id :=userInfo.YbStudentid
+	fmt.Println("student_id",student_id)
 	week := r.Form["week"][0]
 	grade := r.Form["grade"][0]
 
@@ -81,6 +83,7 @@ func GetClassInfoByWeekAndGrade(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(week)
 	initd := service.GetClassInfo(student_id, grade, we)
 
+	fmt.Println(initd,"sdfasfdfasfdfasfdfasfdfasfdfasdfasffasd")
 	service.AllowCORS(w)
 	w.WriteHeader(http.StatusOK)
 
@@ -91,4 +94,3 @@ func GetClassInfoByWeekAndGrade(w http.ResponseWriter, r *http.Request) {
 
 }
 
-/*调用时间太久了，如果有考虑的话可以考虑加入缓存*/

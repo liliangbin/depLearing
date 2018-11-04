@@ -14,7 +14,7 @@ func GetWeeks() int {
 	_, weeks1 := timStart.ISOWeek()
 
 	_, weeks2 := time.ISOWeek()
-	fmt.Println(weeks1 ,"======>")
+	fmt.Println("当前是第几周",weeks2-weeks1)
 	return weeks2 - weeks1
 
 }
