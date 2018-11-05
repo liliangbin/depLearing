@@ -11,6 +11,7 @@ func GetStuInfoById(stuId string) *model.StudentInfo {
 	stu :=new(model.StudentInfo)
 	db, err := core.GetMysqlConn()
 
+	defer db.Close()
 	if err != nil {
 		panic(err.Error())
 	}

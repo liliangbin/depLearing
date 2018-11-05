@@ -25,6 +25,8 @@ func TestWeekClass_InsertClass(t *testing.T) {
 	weekDay := new(WeekClass)
 	weekDay.InsertClass(3, 4, "sdfsd", "sdfasd", "sdfasd")
 
+	weekDay.InsertClass(3, 4, "liliangbin", "liliangbin", "liliangbin")
+
 	fmt.Println(weekDay)
 }
 

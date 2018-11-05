@@ -25,7 +25,6 @@ func GetCurrentClassInfo(w http.ResponseWriter, r *http.Request) {
 	service.AllowCORS(w)
 	w.WriteHeader(http.StatusOK)
 
-	fmt.Fprintf(w, "hello world ")
 	if err := json.NewEncoder(w).Encode(initd); err != nil {
 		panic(err)
 	}
@@ -55,7 +54,6 @@ func GetClassInfoByWeekDay(w http.ResponseWriter, r *http.Request) {
 	service.AllowCORS(w)
 	w.WriteHeader(http.StatusOK)
 
-	fmt.Fprintf(w, "hello world ")
 	if err := json.NewEncoder(w).Encode(initd); err != nil {
 		panic(err)
 	}
@@ -83,11 +81,9 @@ func GetClassInfoByWeekAndGrade(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(week)
 	initd := service.GetClassInfo(student_id, grade, we)
 
-	fmt.Println(initd,"sdfasfdfasfdfasfdfasfdfasfdfasdfasffasd")
 	service.AllowCORS(w)
 	w.WriteHeader(http.StatusOK)
 
-	fmt.Fprintf(w, "hello world ")
 	if err := json.NewEncoder(w).Encode(initd); err != nil {
 		panic(err)
 	}

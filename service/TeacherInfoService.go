@@ -11,6 +11,7 @@ func GetTeacherInfoByteacherNum(teacherNum string) *model.SchoolTeacher {
 	teacher :=new(model.SchoolTeacher)
 	db, err := core.GetMysqlConn()
 
+	defer db.Close()
 	if err != nil {
 		panic(err.Error())
 	}
