@@ -3,7 +3,7 @@
     "username":"school",
     "password":"uUkHgIfO92ACNMyh",
     "dbname":"school_stu_infos",
-    "address":"121.251.255.96",
+    "address":"localhost",
     "port":"3306"
   }
 
